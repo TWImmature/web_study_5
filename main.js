@@ -113,36 +113,40 @@ class EvilCircle extends Shape {
             ArrowLeft: false,
             ArrowUp: false,
             ArrowRight: false,
-            ArrowDown: false
+            ArrowDown: false,
+            KeyW: false,
+            KeyA: false,
+            KeyS: false,
+            KeyD: false
         };
 
         // 监听键盘按下事件
         window.onkeydown = (e) => {
-            if (this.keys.hasOwnProperty(e.key)) {
-                this.keys[e.key] = true;
+            if (this.keys.hasOwnProperty(e.code)) {
+                this.keys[e.code] = true;
             }
         };
 
         // 监听键盘释放事件
         window.onkeyup = (e) => {
-            if (this.keys.hasOwnProperty(e.key)) {
-                this.keys[e.key] = false;
+            if (this.keys.hasOwnProperty(e.code)) {
+                this.keys[e.code] = false;
             }
         };
 
         // 使用requestAnimationFrame来平滑处理移动
         const move = () => {
             // 根据按键状态更新位置
-            if (this.keys.ArrowLeft) {
+            if (this.keys.ArrowLeft || this.keys.KeyA) {
                 this.x -= this.velX;
             }
-            if (this.keys.ArrowUp) {
+            if (this.keys.ArrowUp || this.keys.KeyW) {
                 this.y -= this.velY;
             }
-            if (this.keys.ArrowRight) {
+            if (this.keys.ArrowRight || this.keys.KeyD) {
                 this.x += this.velX;
             }
-            if (this.keys.ArrowDown) {
+            if (this.keys.ArrowDown || this.keys.KeyS) {
                 this.y += this.velY;
             }
 
@@ -157,6 +161,7 @@ class EvilCircle extends Shape {
         // 开始移动
         move();
     }
+
 
     collisionDetect() {
         for (let j = 0; j < balls.length; j++) {
